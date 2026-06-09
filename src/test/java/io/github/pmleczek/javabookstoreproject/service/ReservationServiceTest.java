@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,12 +42,14 @@ class ReservationServiceTest {
         Book book = new Book(1L, "Title", "Author", 3);
         User user = User.builder().id(1L).username("alice").password("pw").role(UserRole.USER).build();
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        when(bookRepository.save(book)).thenReturn(book);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(reservationRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         Reservation result = reservationService.reserveBook(1L, 1L);
 
         assertThat(book.getQuantity()).isEqualTo(2);
+        verify(bookRepository).save(book);
         assertThat(result.isReturned()).isFalse();
         assertThat(result.getReservationDate()).isEqualTo(LocalDate.now());
         assertThat(result.getBook()).isEqualTo(book);
