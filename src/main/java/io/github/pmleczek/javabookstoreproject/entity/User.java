@@ -1,26 +1,43 @@
 package io.github.pmleczek.javabookstoreproject.entity;
 
+import io.github.pmleczek.javabookstoreproject.lib.UserRole;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NullMarked;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class User {
+public class User implements UserDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Column(nullable = false, unique = true)
+	private String username;
 
-    @Column(unique = true)
-    private String username;
+	@Column(nullable = false)
+	private String password;
 
-    private String password;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private UserRole role;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+	@NullMarked
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
 }

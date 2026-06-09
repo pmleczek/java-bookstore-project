@@ -46,4 +46,5 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: test
           SPRING_JPA_HIBERNATE_DDL_AUTO: update
           SPRING_JPA_SHOW_SQL: 'false'
+          JWT_SECRET_KEY: dGVzdC1zZWNyZXQta2V5LWZvci1jaS10ZXN0aW5nISE=
         run: ./mvnw clean install
