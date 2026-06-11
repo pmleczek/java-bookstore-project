@@ -1,5 +1,6 @@
 package io.github.pmleczek.javabookstoreproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.pmleczek.javabookstoreproject.lib.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class User implements UserDetails {
 	@Column(nullable = false, unique = true)
 	private String username;
 
+	@JsonIgnore
 	@Column(nullable = false)
 	private String password;
 
@@ -38,6 +40,6 @@ public class User implements UserDetails {
 	@NullMarked
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.name()));
+		return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
 	}
 }
