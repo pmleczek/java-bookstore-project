@@ -39,7 +39,7 @@ public class ReservationIntegrationTest extends BaseIntegrationTest {
                 .role(UserRole.USER)
                 .build());
         Book savedBook = bookRepository.save(new Book(null, "Test Book", "Author", 3));
-
+ 
         mockMvc.perform(post("/api/reservations/" + savedBook.getId())
                         .with(user(savedUser)))
                 .andExpect(status().isOk())
