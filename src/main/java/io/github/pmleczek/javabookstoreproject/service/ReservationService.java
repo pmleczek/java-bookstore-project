@@ -8,6 +8,7 @@ import io.github.pmleczek.javabookstoreproject.repository.ReservationRepository;
 import io.github.pmleczek.javabookstoreproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ReservationService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public Reservation reserveBook(
             Long userId,
             Long bookId
@@ -33,6 +35,7 @@ public class ReservationService {
         }
 
         book.setQuantity(book.getQuantity() - 1);
+        bookRepository.save(book);
 
         User user = userRepository.findById(userId)
                 .orElseThrow();
