@@ -19,13 +19,17 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+## Diagram ERD
+
+![img_5.png](img_5.png)
+
 ## API
 
 ### Uwierzytelnianie
 
 #### /api/register (POST)
 
-Umozliwia rejestrację uzytkownika typu `USER` (rejestracja uzytkownika `ADMIN` wymaga ręcznej modyfikacji w bazie danych).
+Umożliwia rejestrację użytkownika typu `USER` (rejestracja użytkownika `ADMIN` wymaga ręcznej modyfikacji w bazie danych).
 
 Body:
 
@@ -46,7 +50,7 @@ Response:
 
 #### /api/auth (POST)
 
-Umozliwia zalogowanie się przez uzytkownika.
+Umożliwia zalogowanie się przez użytkownika.
 
 Body:
 
@@ -65,11 +69,11 @@ Response:
 }
 ```
 
-### Ksiązki
+### Książki
 
 #### /api/books (POST)
 
-Umozliwia dodanie nowej ksiązki (jedynie dla uzytkownikow z rolą `ADMIN`).
+Umożliwia dodanie nowej książki (jedynie dla użytkownikow z rolą `ADMIN`).
 
 Body:
 
@@ -84,38 +88,38 @@ Body:
 Response:
 
 ```text
-Stworzony obiekt ksiązki
+Stworzony obiekt książki
 ```
 
 #### /api/books (GET)
 
-Zwraca listę wszystkich dostępnych ksiązek.
+Zwraca listę wszystkich dostępnych książek.
 
 Response:
 
 ```text
-Lista dostępnych ksiązek
+Lista dostępnych książek
 ```
 
 #### /api/books/{id} (GET)
 
-Zwraca ksiązke o podanym identyfikatorze.
+Zwraca książke o podanym identyfikatorze.
 
 Response:
 
 ```text
-Ksiązka o zadanym identyfikatorze
+Książka o zadanym identyfikatorze
 ```
 
 #### /api/books/{id} (DELETE)
 
-Usuwa ksiązke o zadanym identyfikatorze (dostępne jedynie dla uzytkowników o roli `ADMIN`).
+Usuwa książke o zadanym identyfikatorze (dostępne jedynie dla użytkowników o roli `ADMIN`).
 
 ### Rezerwacje
 
-#### /api/reservations/{id}
+#### /api/reservations/{id} (POST)
 
-Rezerwuje ksiązke o podanym identyfikatorze (wymaga uwierzytelnienia).
+Rezerwuje książke o podanym identyfikatorze (wymaga uwierzytelnienia).
 
 Response:
 
@@ -123,15 +127,25 @@ Response:
 Informacje o stworzonej rezerwacji
 ```
 
+### Admin
+
+#### /api/admin/reservations (GET)
+
+Umożliwia dostęp do listy wszystkich rezerwacji (wymaga roli `ADMIN`).
+
+#### /api/admin/user/{id} (GET)
+
+Umożliwia dostęp do listy wszystkich rezerwacji użytkownika (wymaga roli `ADMIN`).
+
 ## Zrzuty ekranu
 
 ### Tabele
 
-#### Uzytkownicy (uwierzytelnianie)
+#### Użytkownicy (uwierzytelnianie)
 
 ![img.png](img.png)
 
-#### Ksiazki
+#### Książki
 
 ![img_1.png](img_1.png)
 
