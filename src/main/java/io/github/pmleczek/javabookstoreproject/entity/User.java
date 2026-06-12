@@ -37,9 +37,26 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private UserRole role;
 
+	@JsonIgnore
 	@NullMarked
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
 	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() { return true; }
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() { return true; }
+
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() { return true; }
+
+	@JsonIgnore
+	@Override
+	public boolean isEnabled() { return true; }
 }
