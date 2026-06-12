@@ -160,3 +160,13 @@ Umożliwia dostęp do listy wszystkich rezerwacji użytkownika (wymaga roli `ADM
 ### Historia pull requestów
 
 ![img_2.png](img_2.png)
+
+## Pokrycie testami
+
+### Testy jednostkowe
+
+![img_6.png](img_6.png)
+
+### Testy integracyjne
+
+![img_7.png](img_7.png)
